@@ -1,8 +1,18 @@
 import { test, expect } from '@playwright/test';
+
 import { SimpleFormPage } from '../pages/SimpleFormPage';
+
 import { testData } from '../utils/testData';
 
+import { attachLogs } from '../utils/logger';
+
 test.describe('Simple Form Demo', () => {
+
+  test.beforeEach(async ({ page }) => {
+
+    await attachLogs(page);
+
+  });
 
   test('Validate entered message', async ({ page }) => {
 
@@ -16,7 +26,10 @@ test.describe('Simple Form Demo', () => {
 
     await simpleForm.clickGetCheckedValue();
 
-    await expect(await simpleForm.getDisplayedMessage())
-      .toHaveText(testData.message);
+    await expect(
+      await simpleForm.getDisplayedMessage()
+    ).toHaveText(testData.message);
+
   });
+
 });
